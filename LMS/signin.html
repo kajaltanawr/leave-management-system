@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Registration Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .gradient-bg {
+          /* background: linear-gradient(to right, #6dd5ed, #2193b0); */
+           background: linear-gradient(to right,  #7c3aed , #4338ca);
+        }
+        .input-group {
+            position: relative;
+        }
+        .input-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6b7280;
+        }
+        .form-checkbox:checked {
+             /* background: linear-gradient(to right, #6dd5ed, #2193b0); */
+              background: linear-gradient(to right,  #7c3aed , #4338ca);
+        }
+        .password-strength-meter {
+            height: 4px;
+            background-color: #e5e7eb;
+            margin-top: 4px;
+            border-radius: 2px;
+        }
+        .password-strength-meter-fill {
+            height: 100%;
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+        .error-message {
+            color: #ef4444;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+        .department-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 8px;
+            color: #4f46e5;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center bg-gray-50">
+    <div class="w-full max-w-md mx-auto p-6">
+        <div class="gradient-bg text-white p-6 rounded-t-lg text-center">
+            <img src="sdits.jpg" alt="University logo with an academic shield design in blue and gold colors" class="mx-auto h-16 w-16 rounded-full mb-4">
+            <h1 class="text-2xl font-bold">University Portal</h1>
+            <p class="text-indigo-100 mt-2">Sign in to your account</p>
+        </div>
+
+        <div class="bg-white shadow-lg rounded-b-lg px-8 py-8">
+            <form id="loginForm" action="leave.html">
+                <!-- Email Field -->
+                <div class="mb-6">
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                    <div class="input-group">
+                        <i class="input-icon fas fa-envelope"></i>
+                        <input type="email" id="email" name="email" required
+                            class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                            placeholder="shraddha mem@sditsuniversity.edu">
+                    </div>
+                </div>
+
+                <!-- Role Field -->
+                <div class="mb-6">
+                    <label for="role" class="block text-sm font-medium text-gray-700 mb-1">Role</label>
+                    <div class="input-group">
+                        <i class="input-icon fas fa-user-tie"></i>
+                        <select id="role" name="role" required
+                            class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 appearance-none">
+                            <option value="" disabled selected>Select your role</option>
+                            <option value="faculty">Faculty</option>
+                            <option value="hod">HOD (Head of Department)</option>
+                            <option value="principal">Principal</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Password Field -->
+                <div class="mb-6">
+                    <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                    <div class="input-group">
+                        <i class="input-icon fas fa-lock"></i>
+                        <input type="password" id="password" name="password" required
+                            class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                            placeholder="Enter your password">
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit"
+                    class="w-full gradient-bg text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
+                    Sign In
+                </button>
+
+                <!-- Registration Link -->
+                <div class="mt-4 text-center text-sm text-gray-600">
+                    Don't have an account? <a href="#" class="text-indigo-600 hover:text-indigo-500">Register here</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('loginForm');
+            
+            // Form submission handler
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Validate fields are filled
+                const inputs = form.querySelectorAll('[required]');
+                let isValid = true;
+                inputs.forEach(input => {
+                    if (!input.value.trim()) {
+                        isValid = false;
+                    }
+                });
+                
+                if (!isValid) {
+                    alert('Please enter your email and password');
+                    return;
+                }
+                
+                // Form is valid - proceed with login
+                //alert('Login successful! Redirecting to dashboard...');
+                // In a real application, you would submit the form here
+                 form.submit();
+            });
+        });
+    </script>
+</body>
+</html>

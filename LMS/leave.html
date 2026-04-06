@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Leave Application Form</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --secondary: #4338ca;
+            --accent: #7c3aed;
+            --light: #f9fafb;
+            --dark: #1f2937;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+
+        .form-card {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .form-card:hover {
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .input-error {
+            border-color: #ef4444;
+        }
+
+        .error-message {
+            color: #ef4444;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+
+        .half-day-options {
+            display: none;
+        }
+
+        .show-half-day {
+            display: flex;
+        }
+
+        .leave-type-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 8px;
+        }
+
+        @media (max-width: 640px) {
+            .form-container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-indigo-700 mb-2">Faculty Leave Application</h1>
+            <p class="text-gray-600">Fill out the form below to apply for leave</p>
+        </div>
+
+        <!-- Faculty Info -->
+        <div class="form-card bg-white rounded-lg p-6 mb-6">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">Faculty Information</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <img src="https://placehold.co/100x100" alt="Faculty profile picture showing a professional portrait" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-indigo-100">
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <p class="text-sm text-gray-500">Name</p>
+                        <p class="font-medium" id="faculty-name">Dr. Shraddha Paliwal</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500">Department</p>
+                        <p class="font-medium" id="faculty-dept">Computer Science</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500">Faculty ID</p>
+                        <p class="font-medium" id="faculty-id">CS-2023-045</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Leave Application Form -->
+        <form id="leave-form" class="form-card bg-white rounded-lg p-6">
+            <!-- Leave Type -->
+            <div class="mb-6">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Leave Details</h2>
+                <div class="space-y-4">
+                    <div>
+                        <label for="leave-type" class="block text-sm font-medium text-gray-700 mb-1">
+                            Leave Type <span class="text-red-500">*</span>
+                        </label>
+                        <select id="leave-type" name="leave-type" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                            <option value="">Select leave type</option>
+                            <option value="vacation">Vacation Leave</option>
+                            <option value="sick">Sick Leave</option>
+                            <option value="casual">Casual Leave</option>
+                            <option value="personal">Personal Leave</option>
+                            <option value="official">Official Duty</option>
+                            <option value="research">Research Leave</option>
+                            <option value="maternity">Maternity Leave</option>
+                            <option value="paternity">Paternity Leave</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <p id="leave-type-error" class="error-message"></p>
+                    </div>
+
+                    <div id="other-leave-reason" class="hidden">
+                        <label for="custom-leave-reason" class="block text-sm font-medium text-gray-700 mb-1">
+                            Specify Leave Type <span class="text-red-500">*</span>
+                        </label>
+                        <input type="text" id="custom-leave-reason" name="custom-leave-reason" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        <p id="custom-reason-error" class="error-message"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Leave Duration -->
+            <div class="mb-6">
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                    Leave Duration <span class="text-red-500">*</span>
+                </label>
+                
+                <div class="space-y-4">
+                    <div class="flex items-center">
+                        <input id="full-day" name="duration" type="radio" value="full-day" checked class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300">
+                        <label for="full-day" class="ml-3 block text-sm font-medium text-gray-700">
+                            Full Day
+                        </label>
+                    </div>
+                    
+                    <div class="flex items-center">
+                        <input id="half-day" name="duration" type="radio" value="half-day" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300">
+                        <label for="half-day" class="ml-3 block text-sm font-medium text-gray-700">
+                            Half Day
+                        </label>
+                    </div>
+
+                    <div class="flex items-center">
+                        <input id="multiple-days" name="duration" type="radio" value="multiple-days" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300">
+                        <label for="multiple-days" class="ml-3 block text-sm font-medium text-gray-700">
+                            Multiple Days
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Half Day Options -->
+            <div id="half-day-options" class="half-day-options mb-6">
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                    Half Day Period <span class="text-red-500">*</span>
+                </label>
+                <div class="flex space-x-4">
+                    <div class="flex items-center">
+                        <input id="morning" name="half-day-period" type="radio" value="morning" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300">
+                        <label for="morning" class="ml-3 block text-sm font-medium text-gray-700">
+                            Morning (8am-12pm)
+                        </label>
+                    </div>
+                    <div class="flex items-center">
+                        <input id="afternoon" name="half-day-period" type="radio" value="afternoon" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300">
+                        <label for="afternoon" class="ml-3 block text-sm font-medium text-gray-700">
+                            Afternoon (1pm-5pm)
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Date Selection -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div>
+                    <label for="start-date" class="block text-sm font-medium text-gray-700 mb-1">
+                        Start Date <span class="text-red-500">*</span>
+                    </label>
+                    <input type="date" id="start-date" name="start-date" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <p id="start-date-error" class="error-message"></p>
+                </div>
+
+                <div id="end-date-field">
+                    <label for="end-date" class="block text-sm font-medium text-gray-700 mb-1">
+                        End Date <span class="text-red-500">*</span>
+                    </label>
+                    <input type="date" id="end-date" name="end-date" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <p id="end-date-error" class="error-message"></p>
+                </div>
+            </div>
+
+            <!-- Reason for Leave -->
+            <div class="mb-6">
+                <label for="reason" class="block text-sm font-medium text-gray-700 mb-1">
+                    Reason for Leave <span class="text-red-500">*</span>
+                </label>
+                <textarea id="reason" name="reason" rows="3" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="Please provide details about why you need this leave"></textarea>
+                <p id="reason-error" class="error-message"></p>
+            </div>
+
+            <!-- Alternative Contact -->
+            <div class="mb-6">
+                <label for="contact" class="block text-sm font-medium text-gray-700 mb-1">
+                    Alternative Contact During Leave <span class="text-red-500">*</span>
+                </label>
+                <input type="text" id="contact" name="contact" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="Phone number or email where you can be reached">
+                <p id="contact-error" class="error-message"></p>
+            </div>
+
+            <!-- Supporting Documents -->
+            <div class="mb-6">
+                <label for="attachment" class="block text-sm font-medium text-gray-700 mb-1">
+                    Supporting Documents
+                </label>
+                <div class="mt-1 flex items-center">
+                    <label for="attachment" class="cursor-pointer bg-indigo-50 text-indigo-600 px-4 py-2 rounded-md border border-indigo-200 hover:bg-indigo-100">
+                        <span>Choose File</span>
+                        <input id="attachment" name="attachment" type="file" class="hidden">
+                    </label>
+                    <span id="file-name" class="ml-3 text-sm text-gray-500">No file chosen</span>
+                </div>
+                <p class="mt-1 text-xs text-gray-500">Upload any supporting documents (medical certificate, conference invite, etc.)</p>
+                <p id="attachment-error" class="error-message"></p>
+            </div>
+
+            <!-- Terms and Conditions -->
+            <div class="mb-6">
+                <div class="flex items-start">
+                    <div class="flex items-center h-5">
+                        <input id="terms" name="terms" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                    </div>
+                    <div class="ml-3 text-sm">
+                        <label for="terms" class="font-medium text-gray-700">
+                            I confirm that the information provided is accurate
+                        </label>
+                        <p class="text-gray-500">By checking this box, you acknowledge that you have reviewed all the details</p>
+                    </div>
+                </div>
+                <p id="terms-error" class="error-message"></p>
+            </div>
+
+            <!-- Form Actions -->
+            <div class="flex justify-end space-x-4">
+                <button type="button" onclick="resetForm()" class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    Reset Form
+                </button>
+                <button type="button" onclick="submitForm()" class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    Submit Application
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="fixed z-10 inset-0 overflow-y-auto hidden" id="success-modal">
+        <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+                <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+            </div>
+            
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+            
+            <div class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
+                <div>
+                    <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
+                        <svg class="h-6 w-6 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </div>
+                    <div class="mt-3 text-center sm:mt-5">
+                        <h3 class="text-lg leading-6 font-medium text-gray-900">
+                            Application Submitted Successfully!
+                        </h3>
+                        <div class="mt-2">
+                            <p class="text-sm text-gray-500">
+                                Your leave application has been submitted. You will receive a confirmation email shortly.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-5 sm:mt-6">
+                    <button type="button" onclick="closeSuccessModal()" class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm">
+                        OK
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Set minimum date for date inputs to today
+        function setMinDates() {
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            
+            // Format dates as YYYY-MM-DD
+            const todayStr = today.toISOString().split('T')[0];
+            const tomorrowStr = tomorrow.toISOString().split('T')[0];
+            
+            document.getElementById('start-date').min = todayStr;
+            document.getElementById('end-date').min = tomorrowStr;
+        }
+
+        // Initialize form
+        document.addEventListener('DOMContentLoaded', function() {
+            setMinDates();
+            
+            // Event listeners
+            document.getElementById('leave-type').addEventListener('change', function() {
+                const leaveType = this.value;
+                const otherReasonDiv = document.getElementById('other-leave-reason');
+                
+                if (leaveType === 'other') {
+                    otherReasonDiv.classList.remove('hidden');
+                } else {
+                    otherReasonDiv.classList.add('hidden');
+                    document.getElementById('custom-leave-reason').value = '';
+                }
+            });
+
+            document.querySelectorAll('input[name="duration"]').forEach(radio => {
+                radio.addEventListener('change', function() {
+                    const duration = this.value;
+                    const halfDayOptions = document.getElementById('half-day-options');
+                    const endDateField = document.getElementById('end-date-field');
+                    
+                    if (duration === 'half-day') {
+                        halfDayOptions.classList.add('show-half-day');
+                        endDateField.classList.add('hidden');
+                    } else {
+                        halfDayOptions.classList.remove('show-half-day');
+                        endDateField.classList.remove('hidden');
+                        
+                        if (duration === 'full-day') {
+                            const startDate = document.getElementById('start-date').value;
+                            if (startDate) {
+                                document.getElementById('end-date').value = startDate;
+                            }
+                        }
+                    }
+                });
+            });
+
+            document.getElementById('start-date').addEventListener('change', function() {
+                const startDate = this.value;
+                const duration = document.querySelector('input[name="duration"]:checked').value;
+                
+                if (duration === 'full-day') {
+                    document.getElementById('end-date').value = startDate;
+                } else if (duration === 'multiple-days' && startDate) {
+                    const start = new Date(startDate);
+                    const end = new Date(start);
+                    end.setDate(start.getDate() + 1);
+                    const endStr = end.toISOString().split('T')[0];
+                    document.getElementById('end-date').value = endStr;
+                    document.getElementById('end-date').min = endStr;
+                }
+            });
+
+            document.getElementById('attachment').addEventListener('change', function() {
+                const fileNameSpan = document.getElementById('file-name');
+                if (this.files.length > 0) {
+                    fileNameSpan.textContent = this.files[0].name;
+                } else {
+                    fileNameSpan.textContent = 'No file chosen';
+                }
+            });
+        });
+
+        // Validate form
+        function validateForm() {
+            let isValid = true;
+            
+            // Reset error states
+            document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+            document.querySelectorAll('.input-error').forEach(el => el.classList.remove('input-error'));
+            
+            // Validate leave type
+            const leaveType = document.getElementById('leave-type').value;
+            if (!leaveType) {
+                document.getElementById('leave-type-error').textContent = 'Please select a leave type';
+                document.getElementById('leave-type').classList.add('input-error');
+                isValid = false;
+            }
+            
+            // Validate custom reason if leave type is "other"
+            if (leaveType === 'other') {
+                const customReason = document.getElementById('custom-leave-reason').value.trim();
+                if (!customReason) {
+                    document.getElementById('custom-reason-error').textContent = 'Please specify the leave type';
+                    document.getElementById('custom-leave-reason').classList.add('input-error');
+                    isValid = false;
+                }
+            }
+            
+            // Validate start date
+            const startDate = document.getElementById('start-date').value;
+            if (!startDate) {
+                document.getElementById('start-date-error').textContent = 'Please select a start date';
+                document.getElementById('start-date').classList.add('input-error');
+                isValid = false;
+            }
+            
+            // Validate end date (if not half-day)
+            const duration = document.querySelector('input[name="duration"]:checked').value;
+            if (duration !== 'half-day') {
+                const endDate = document.getElementById('end-date').value;
+                if (!endDate) {
+                    document.getElementById('end-date-error').textContent = 'Please select an end date';
+                    document.getElementById('end-date').classList.add('input-error');
+                    isValid = false;
+                } else if (endDate < startDate) {
+                    document.getElementById('end-date-error').textContent = 'End date must be after start date';
+                    document.getElementById('end-date').classList.add('input-error');
+                    isValid = false;
+                }
+            }
+            
+            // Validate half-day period if applicable
+            if (duration === 'half-day') {
+                const halfDayPeriod = document.querySelector('input[name="half-day-period"]:checked');
+                if (!halfDayPeriod) {
+                    const errorMsg = document.createElement('p');
+                    errorMsg.id = 'half-day-error';
+                    errorMsg.className = 'error-message';
+                    errorMsg.textContent = 'Please select a half-day period';
+                    document.getElementById('half-day-options').appendChild(errorMsg);
+                    isValid = false;
+                }
+            }
+            
+            // Validate reason
+            const reason = document.getElementById('reason').value.trim();
+            if (!reason) {
+                document.getElementById('reason-error').textContent = 'Please provide a reason for your leave';
+                document.getElementById('reason').classList.add('input-error');
+                isValid = false;
+            } else if (reason.length < 15) {
+                document.getElementById('reason-error').textContent = 'Please provide a more detailed reason (min 15 characters)';
+                document.getElementById('reason').classList.add('input-error');
+                isValid = false;
+            }
+            
+            // Validate contact
+            const contact = document.getElementById('contact').value.trim();
+            if (!contact) {
+                document.getElementById('contact-error').textContent = 'Please provide an alternative contact';
+                document.getElementById('contact').classList.add('input-error');
+                isValid = false;
+            }
+            
+            // Validate terms checkbox
+            if (!document.getElementById('terms').checked) {
+                document.getElementById('terms-error').textContent = 'You must confirm that the information is accurate';
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+
+        // Submit form
+        function submitForm() {
+            if (validateForm()) {
+                // In a real application, you would send this data to the server
+                const formData = {
+                    facultyName: document.getElementById('faculty-name').textContent,
+                    facultyDept: document.getElementById('faculty-dept').textContent,
+                    facultyId: document.getElementById('faculty-id').textContent,
+                    leaveType: document.getElementById('leave-type').value === 'other' 
+                        ? document.getElementById('custom-leave-reason').value.trim()
+                        : document.getElementById('leave-type').value,
+                    duration: document.querySelector('input[name="duration"]:checked').value,
+                    startDate: document.getElementById('start-date').value,
+                    endDate: document.querySelector('input[name="duration"]:checked').value === 'half-day'
+                        ? document.getElementById('start-date').value
+                        : document.getElementById('end-date').value,
+                    halfDayPeriod: document.querySelector('input[name="duration"]:checked').value === 'half-day'
+                        ? document.querySelector('input[name="half-day-period"]:checked').value
+                        : null,
+                    reason: document.getElementById('reason').value.trim(),
+                    contact: document.getElementById('contact').value.trim(),
+                    attachment: document.getElementById('attachment').files[0] 
+                        ? document.getElementById('attachment').files[0].name
+                        : null
+                };
+                
+                console.log('Form would be submitted with:', formData);
+                
+                // Show success modal
+                document.getElementById('success-modal').classList.remove('hidden');
+                
+                // In a real app, you would send this data to the server
+                // fetch('/api/leave-applications', {
+                //     method: 'POST',
+                //     headers: {
+                //         'Content-Type': 'application/json',
+                //     },
+                //     body: JSON.stringify(formData)
+                // })
+                // .then(response => response.json())
+                // .then(data => {
+                //     console.log('Success:', data);
+                //     showSuccessModal();
+                // })
+                // .catch(error => {
+                //     console.error('Error:', error);
+                //     showErrorToast();
+                // });
+            }
+        }
+
+        function resetForm() {
+            document.getElementById('leave-form').reset();
+            document.getElementById('file-name').textContent = 'No file chosen';
+            document.getElementById('other-leave-reason').classList.add('hidden');
+            document.getElementById('half-day-options').classList.remove('show-half-day');
+            document.getElementById('end-date-field').classList.remove('hidden');
+            document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+            document.querySelectorAll('.input-error').forEach(el => el.classList.remove('input-error'));
+            setMinDates();
+        }
+
+        function closeSuccessModal() {
+            document.getElementById('success-modal').classList.add('hidden');
+            resetForm();
+        }
+    </script>
+</body>
+</html>
