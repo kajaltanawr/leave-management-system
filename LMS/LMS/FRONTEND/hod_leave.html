@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HOD Leave Application</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+
+<div class="min-h-screen flex items-center justify-center p-4">
+  <div class="bg-white shadow-xl rounded-2xl w-full max-w-5xl grid md:grid-cols-3 overflow-hidden">
+
+    <!-- Profile Section -->
+    <div class="bg-blue-600 text-white p-6 flex flex-col items-center justify-center">
+      <img src="https://via.placeholder.com/120"
+           class="w-28 h-28 rounded-full border-4 border-white shadow-lg mb-4">
+      
+      <h2 class="text-xl font-bold">Mr. Ankit Bakshi</h2>
+      <p class="text-sm mt-1">Head of Department</p>
+      <p class="text-sm">Computer Science</p>
+
+      <div class="mt-4 text-sm text-center">
+        <p>📧 ankit@college.edu</p>
+        <p>📞 +91 9876543210</p>
+      </div>
+    </div>
+
+    <!-- Form Section -->
+    <div class="md:col-span-2 p-8">
+
+      <h2 class="text-2xl font-bold text-gray-700 mb-6">
+        HOD Leave Application
+      </h2>
+
+      <form class="space-y-5">
+
+        <!-- Leave Type -->
+        <div>
+          <label class="block text-sm font-medium text-gray-600">
+            Leave Type
+          </label>
+          <select class="w-full mt-1 p-3 border rounded-lg focus:ring-2 focus:ring-blue-400">
+            <option>Casual Leave</option>
+            <option>Medical Leave</option>
+            <option>Emergency Leave</option>
+          </select>
+        </div>
+
+        <!-- From & To Date -->
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm text-gray-600">From Date</label>
+            <input type="date" class="w-full mt-1 p-3 border rounded-lg">
+          </div>
+
+          <div>
+            <label class="block text-sm text-gray-600">To Date</label>
+            <input type="date" class="w-full mt-1 p-3 border rounded-lg">
+          </div>
+        </div>
+
+        <!-- Reason -->
+        <div>
+          <label class="block text-sm text-gray-600">Reason</label>
+          <textarea rows="4"
+            class="w-full mt-1 p-3 border rounded-lg"
+            placeholder="Enter reason..."></textarea>
+        </div>
+
+        <!-- Substitute -->
+        <div>
+          <label class="block text-sm text-gray-600">
+            Substitute Faculty (Optional)
+          </label>
+          <input type="text"
+            class="w-full mt-1 p-3 border rounded-lg"
+            placeholder="Enter name">
+        </div>
+
+        <!-- Submit -->
+        <div>
+          <button type="submit"
+            class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition">
+            Submit Application
+          </button>
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HOD Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="p-6 bg-gray-100">
+
+<h1 class="text-2xl font-bold mb-4">HOD - Leave Requests</h1>
+
+<table class="w-full bg-white shadow rounded">
+    <thead class="bg-indigo-600 text-white">
+        <tr>
+            <th class="p-2">Name</th>
+            <th class="p-2">Department</th>
+            <th class="p-2">Leave</th>
+            <th class="p-2">Dates</th>
+            <th class="p-2">Status</th>
+            <th class="p-2">Action</th>
+        </tr>
+    </thead>
+    <tbody id="tableBody"></tbody>
+</table>
+
+<script>
+function loadData() {
+    const data = JSON.parse(localStorage.getItem("leaveApplications")) || [];
+    const table = document.getElementById("tableBody");
+    table.innerHTML = "";
+
+    data.forEach((app, index) => {
+        table.innerHTML += `
+            <tr class="border">
+                <td class="p-2">${app.facultyName}</td>
+                <td class="p-2">${app.department}</td>
+                <td class="p-2">${app.leaveType}</td>
+                <td class="p-2">${app.startDate} to ${app.endDate}</td>
+                <td class="p-2">${app.status}</td>
+                <td class="p-2 space-x-2">
+                    <button onclick="approve(${index})" class="bg-green-500 text-white px-2 py-1 rounded">Approve</button>
+                    <button onclick="reject(${index})" class="bg-red-500 text-white px-2 py-1 rounded">Reject</button>
+                </td>
+            </tr>
+        `;
+    });
+}
+
+function approve(index) {
+    let data = JSON.parse(localStorage.getItem("leaveApplications"));
+    data[index].status = "Approved";
+    localStorage.setItem("leaveApplications", JSON.stringify(data));
+    loadData();
+}
+
+function reject(index) {
+    let data = JSON.parse(localStorage.getItem("leaveApplications"));
+    data[index].status = "Rejected";
+    localStorage.setItem("leaveApplications", JSON.stringify(data));
+    loadData();
+}
+
+// Load on page open
+loadData();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSE Staff List</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    body { background: #f1f5f9; }
+  </style>
+</head>
+
+<body class="p-6">
+
+<!-- 🔷 Header -->
+<div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
+  <h1 class="text-3xl font-bold text-indigo-700">Computer Science Department</h1>
+
+  <div class="flex gap-3 mt-4 md:mt-0">
+    <input id="searchInput" type="text" placeholder="Search faculty..."
+      class="px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400">
+
+    <select id="filterRole"
+      class="px-4 py-2 border rounded-lg shadow-sm focus:outline-none">
+      <option value="all">All Roles</option>
+      <option value="Professor">Professor</option>
+      <option value="Assistant Professor">Assistant Professor</option>
+      <option value="Lab Staff">Lab Staff</option>
+    </select>
+  </div>
+</div>
+
+<!-- 🔷 Staff Grid -->
+<div id="staffContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+  <!-- Card -->
+  <div class="staffCard bg-white rounded-2xl shadow-lg p-5 hover:scale-105 transition"
+       data-name="Anita Sharma" data-role="Professor">
+
+    <div class="flex items-center gap-4">
+      <img src="#" class="w-16 h-16 rounded-full">
+      <div>
+        <h2 class="text-xl font-semibold">Mr. Ankit bakshi</h2>
+        <p class="text-gray-500">Professor</p>
+      </div>
+    </div>
+
+    <div class="mt-4 text-sm text-gray-600">
+      <p>📧 ankit@college.edu</p>
+      <p>📞 +91 9876543210</p>
+    </div>
+
+    <span class="inline-block mt-3 px-3 py-1 bg-green-100 text-green-600 text-xs rounded-full">
+      Active
+    </span>
+  </div>
+
+  <!-- Card -->
+  <div class="staffCard bg-white rounded-2xl shadow-lg p-5 hover:scale-105 transition"
+       data-name="Rahul Verma" data-role="Assistant Professor">
+
+    <div class="flex items-center gap-4">
+      <img src=" #" class="w-16 h-16 rounded-full">
+      <div>
+        <h2 class="text-xl font-semibold">Prof. Nikita sharma</h2>
+        <p class="text-gray-500">Assistant Professor</p>
+      </div>
+    </div>
+
+    <div class="mt-4 text-sm text-gray-600">
+      <p>📧 nikita@college.edu</p>
+      <p>📞 +91 9123456780</p>
+    </div>
+
+    <span class="inline-block mt-3 px-3 py-1 bg-yellow-100 text-yellow-600 text-xs rounded-full">
+      On Leave
+    </span>
+  </div>
+
+  <!-- Card -->
+  <div class="staffCard bg-white rounded-2xl shadow-lg p-5 hover:scale-105 transition"
+       data-name="Sneha Patel" data-role="Lab Staff">
+
+    <div class="flex items-center gap-4">
+      <img src="#" class="w-16 h-16 rounded-full">
+      <div>
+        <h2 class="text-xl font-semibold">Deeraj satpale</h2>
+        <p class="text-gray-500">Lab Staff</p>
+      </div>
+    </div>
+
+    <div class="mt-4 text-sm text-gray-600">
+      <p>📧 deeraj@college.edu</p>
+      <p>📞 +91 9988776655</p>
+    </div>
+
+    <span class="inline-block mt-3 px-3 py-1 bg-green-100 text-green-600 text-xs rounded-full">
+      Active
+    </span>
+  </div>
+
+  <!-- Card -->
+  <div class="staffCard bg-white rounded-2xl shadow-lg p-5 hover:scale-105 transition"
+       data-name="Amit Singh" data-role="Assistant Professor">
+
+    <div class="flex items-center gap-4">
+      <img src="#" class="w-16 h-16 rounded-full">
+      <div>
+        <h2 class="text-xl font-semibold">Dr. Sharddha paliwal</h2>
+        <p class="text-gray-500">Assistant Professor</p>
+      </div>
+    </div>
+
+    <div class="mt-4 text-sm text-gray-600">
+      <p>📧 sharddha@college.edu</p>
+      <p>📞 +91 9001122334</p>
+    </div>
+
+    <span class="inline-block mt-3 px-3 py-1 bg-green-100 text-green-600 text-xs rounded-full">
+      Active
+    </span>
+  </div>
+
+</div>
+
+<!-- 🔷 Script -->
+<script>
+const searchInput = document.getElementById("searchInput");
+const filterRole = document.getElementById("filterRole");
+const cards = document.querySelectorAll(".staffCard");
+
+function filterCards() {
+  const search = searchInput.value.toLowerCase();
+  const role = filterRole.value;
+
+  cards.forEach(card => {
+    const name = card.dataset.name.toLowerCase();
+    const cardRole = card.dataset.role;
+
+    const matchSearch = name.includes(search);
+    const matchRole = role === "all" || cardRole === role;
+
+    if (matchSearch && matchRole) {
+      card.style.display = "block";
+    } else {
+      card.style.display = "none";
+    }
+  });
+}
+
+searchInput.addEventListener("input", filterCards);
+filterRole.addEventListener("change", filterCards);
+</script>
+
+</body>
+</html>

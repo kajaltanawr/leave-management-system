@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Institute Analytics - CSE & DS</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    body { background: #f1f5f9; }
+  </style>
+</head>
+
+<body class="flex">
+
+<!-- 🔷 Sidebar -->
+<div class="w-64 bg-indigo-700 text-white min-h-screen p-5">
+  <h2 class="text-2xl font-bold mb-8">Institute Panel</h2>
+
+  <ul class="space-y-4">
+    <li class="hover:bg-indigo-500 p-2 rounded">Dashboard</li>
+    <li class="hover:bg-indigo-500 p-2 rounded">Leave</li>
+    <li class="hover:bg-indigo-500 p-2 rounded">Attendance</li>
+    <li class="hover:bg-indigo-500 p-2 rounded">Feedback</li>
+    <li class="hover:bg-red-500 p-2 rounded">Logout</li>
+  </ul>
+</div>
+
+<!-- 🔷 Main -->
+<div class="flex-1 p-6">
+
+<h1 class="text-3xl font-bold mb-6">CSE & Data Science Leave Analytics</h1>
+
+<!-- 🔷 Department KPI -->
+<div class="grid md:grid-cols-2 gap-6 mb-6">
+
+  <!-- CSE -->
+  <div class="bg-white p-5 rounded-xl shadow">
+    <h2 class="text-xl font-semibold mb-4 text-indigo-600">Computer Science (CSE)</h2>
+
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <p class="text-gray-500">Total</p>
+        <p class="text-xl font-bold">70</p>
+      </div>
+      <div>
+        <p class="text-gray-500">Approved</p>
+        <p class="text-xl font-bold text-green-600">50</p>
+      </div>
+      <div>
+        <p class="text-gray-500">Pending</p>
+        <p class="text-xl font-bold text-yellow-500">12</p>
+      </div>
+      <div>
+        <p class="text-gray-500">Rejected</p>
+        <p class="text-xl font-bold text-red-500">8</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- DS -->
+  <div class="bg-white p-5 rounded-xl shadow">
+    <h2 class="text-xl font-semibold mb-4 text-purple-600">Data Science (DS)</h2>
+
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <p class="text-gray-500">Total</p>
+        <p class="text-xl font-bold">50</p>
+      </div>
+      <div>
+        <p class="text-gray-500">Approved</p>
+        <p class="text-xl font-bold text-green-600">30</p>
+      </div>
+      <div>
+        <p class="text-gray-500">Pending</p>
+        <p class="text-xl font-bold text-yellow-500">13</p>
+      </div>
+      <div>
+        <p class="text-gray-500">Rejected</p>
+        <p class="text-xl font-bold text-red-500">7</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- 🔷 Charts -->
+<div class="grid md:grid-cols-2 gap-6 mb-6">
+
+  <!-- Trend Comparison -->
+  <div class="bg-white p-5 rounded-xl shadow">
+    <h3 class="mb-4 font-semibold">Monthly Leave Comparison</h3>
+    <canvas id="trendChart"></canvas>
+  </div>
+
+  <!-- Status Distribution -->
+  <div class="bg-white p-5 rounded-xl shadow">
+    <h3 class="mb-4 font-semibold">Leave Status Distribution</h3>
+    <canvas id="statusChart"></canvas>
+  </div>
+
+</div>
+
+<!-- 🔷 Table -->
+<div class="bg-white p-5 rounded-xl shadow">
+  <h3 class="mb-4 font-semibold">Recent Leave Requests (CSE & DS)</h3>
+
+  <div class="overflow-x-auto">
+    <table class="w-full">
+      <thead>
+        <tr class="bg-gray-100">
+          <th class="p-3 text-left">Faculty</th>
+          <th class="p-3 text-left">Department</th>
+          <th class="p-3 text-left">Date</th>
+          <th class="p-3 text-left">Status</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr class="border-b">
+          <td class="p-3">Dr. A. Sharma</td>
+          <td class="p-3">CSE</td>
+          <td class="p-3">10 Apr</td>
+          <td class="p-3 text-green-600">Approved</td>
+        </tr>
+
+        <tr class="border-b">
+          <td class="p-3">Prof. R. Verma</td>
+          <td class="p-3">DS</td>
+          <td class="p-3">11 Apr</td>
+          <td class="p-3 text-yellow-500">Pending</td>
+        </tr>
+
+        <tr class="border-b">
+          <td class="p-3">Dr. S. Patel</td>
+          <td class="p-3">CSE</td>
+          <td class="p-3">12 Apr</td>
+          <td class="p-3 text-red-500">Rejected</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</div>
+
+<!-- 🔷 Charts Script -->
+<script>
+
+// Trend Chart (CSE vs DS)
+new Chart(document.getElementById("trendChart"), {
+  type: "line",
+  data: {
+    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+    datasets: [
+      {
+        label: "CSE",
+        data: [10, 15, 12, 20, 18, 16],
+        borderColor: "#4f46e5",
+        fill: false,
+        tension: 0.4
+      },
+      {
+        label: "Data Science",
+        data: [8, 12, 10, 15, 14, 13],
+        borderColor: "#9333ea",
+        fill: false,
+        tension: 0.4
+      }
+    ]
+  }
+});
+
+// Status Chart
+new Chart(document.getElementById("statusChart"), {
+  type: "doughnut",
+  data: {
+    labels: ["Approved", "Pending", "Rejected"],
+    datasets: [{
+      data: [80, 25, 15],
+      backgroundColor: ["#22c55e", "#f59e0b", "#ef4444"]
+    }]
+  }
+});
+
+</script>
+
+</body>
+</html>

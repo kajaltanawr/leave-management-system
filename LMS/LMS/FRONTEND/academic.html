@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Institute Analytics - Leave Management</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    body {
+      background-color: #f1f5f9;
+    }
+  </style>
+</head>
+
+<body class="flex">
+
+<!-- 🔷 Sidebar -->
+<div class="w-64 bg-indigo-700 text-white min-h-screen p-5">
+  <h2 class="text-2xl font-bold mb-8">Institute Panel</h2>
+
+  <ul class="space-y-4">
+    <li class="hover:bg-indigo-500 p-2 rounded cursor-pointer">Dashboard</li>
+    <li class="hover:bg-indigo-500 p-2 rounded cursor-pointer">Leave</li>
+    <li class="hover:bg-indigo-500 p-2 rounded cursor-pointer">Attendance</li>
+    <li class="hover:bg-indigo-500 p-2 rounded cursor-pointer">Feedback</li>
+    <li class="hover:bg-red-500 p-2 rounded cursor-pointer">Logout</li>
+  </ul>
+</div>
+
+<!-- 🔷 Main Content -->
+<div class="flex-1 p-6">
+
+  <!-- Header -->
+  <h1 class="text-3xl font-bold mb-6">Leave Analytics Dashboard</h1>
+
+  <!-- 🔷 KPI Cards -->
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+
+    <div class="bg-white p-5 rounded-xl shadow">
+      <h3 class="text-gray-500">Total Leaves</h3>
+      <p class="text-2xl font-bold text-indigo-600">120</p>
+    </div>
+
+    <div class="bg-white p-5 rounded-xl shadow">
+      <h3 class="text-gray-500">Approved</h3>
+      <p class="text-2xl font-bold text-green-600">80</p>
+    </div>
+
+    <div class="bg-white p-5 rounded-xl shadow">
+      <h3 class="text-gray-500">Pending</h3>
+      <p class="text-2xl font-bold text-yellow-500">25</p>
+    </div>
+
+    <div class="bg-white p-5 rounded-xl shadow">
+      <h3 class="text-gray-500">Rejected</h3>
+      <p class="text-2xl font-bold text-red-500">15</p>
+    </div>
+
+  </div>
+
+  <!-- 🔷 Charts -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+
+    <!-- Line Chart -->
+    <div class="bg-white p-5 rounded-xl shadow">
+      <h3 class="mb-4 font-semibold">Monthly Leave Trends</h3>
+      <canvas id="lineChart"></canvas>
+    </div>
+
+    <!-- Pie Chart -->
+    <div class="bg-white p-5 rounded-xl shadow">
+      <h3 class="mb-4 font-semibold">Department-wise Leaves</h3>
+      <canvas id="pieChart"></canvas>
+    </div>
+
+  </div>
+
+  <!-- 🔷 Table -->
+  <div class="bg-white p-5 rounded-xl shadow">
+    <h3 class="mb-4 font-semibold">Recent Leave Requests</h3>
+
+    <div class="overflow-x-auto">
+      <table class="w-full text-left border-collapse">
+        <thead>
+          <tr class="bg-gray-100">
+            <th class="p-3">Faculty</th>
+            <th class="p-3">Department</th>
+            <th class="p-3">Date</th>
+            <th class="p-3">Status</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr class="border-b">
+            <td class="p-3">Dr. Sharma</td>
+            <td class="p-3">CSE</td>
+            <td class="p-3">12 Apr</td>
+            <td class="p-3 text-green-600">Approved</td>
+          </tr>
+
+          <tr class="border-b">
+            <td class="p-3">Prof. Singh</td>
+            <td class="p-3">ECE</td>
+            <td class="p-3">13 Apr</td>
+            <td class="p-3 text-yellow-500">Pending</td>
+          </tr>
+
+          <tr class="border-b">
+            <td class="p-3">Dr. Patel</td>
+            <td class="p-3">ME</td>
+            <td class="p-3">14 Apr</td>
+            <td class="p-3 text-red-500">Rejected</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<!-- 🔷 Charts Script -->
+<script>
+
+  // Line Chart
+  const ctx1 = document.getElementById('lineChart').getContext('2d');
+  new Chart(ctx1, {
+    type: 'line',
+    data: {
+      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+      datasets: [{
+        label: 'Leaves',
+        data: [10, 20, 15, 30, 25, 20],
+        borderColor: '#4f46e5',
+        fill: false,
+        tension: 0.4
+      }]
+    }
+  });
+
+  // Pie Chart
+  const ctx2 = document.getElementById('pieChart').getContext('2d');
+  new Chart(ctx2, {
+    type: 'pie',
+    data: {
+      labels: ['CSE', 'ECE', 'ME', 'Civil'],
+      datasets: [{
+        data: [40, 25, 20, 15],
+        backgroundColor: [
+          '#4f46e5',
+          '#22c55e',
+          '#f59e0b',
+          '#ef4444'
+        ]
+      }]
+    }
+  });
+
+</script>
+
+</body>
+</html>

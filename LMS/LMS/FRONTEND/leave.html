@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Faculty Leave Application</title>
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+body {
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #eef2ff, #e0e7ff);
+}
+.glass {
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(12px);
+}
+</style>
+</head>
+
+<body class="min-h-screen flex items-center justify-center p-6">
+
+<div class="w-full max-w-6xl grid md:grid-cols-3 rounded-3xl shadow-2xl overflow-hidden glass">
+
+<!-- PROFILE -->
+<div class="bg-gradient-to-br from-indigo-600 to-purple-700 text-white p-8 flex flex-col items-center justify-center">
+
+<img src="https://placehold.co/120x120" class="w-32 h-32 rounded-full border-4 border-white shadow-xl mb-4">
+
+<h2 class="text-2xl font-bold">Dr. Shraddha Paliwal</h2>
+<p class="opacity-90">Computer Science</p>
+<p class="opacity-80 text-sm">Faculty ID: CS-2023-045</p>
+
+<div class="mt-6 text-center text-sm space-y-1">
+<p>📧 faculty@college.edu</p>
+<p>📞 +91 9876543210</p>
+</div>
+
+</div>
+
+<!-- FORM -->
+<div class="md:col-span-2 p-10">
+
+<h1 class="text-3xl font-bold text-gray-800 mb-2">Leave Application</h1>
+<p class="text-gray-500 mb-8">Submit your leave request professionally</p>
+
+<form class="space-y-6">
+
+<div>
+<label class="text-sm text-gray-600">Leave Type</label>
+<select class="w-full mt-2 p-3 border rounded-xl focus:ring-2 focus:ring-indigo-400">
+<option>Casual Leave</option>
+<option>Medical Leave</option>
+<option>Official Duty</option>
+<option>Research Leave</option>
+</select>
+</div>
+
+<div class="grid md:grid-cols-2 gap-4">
+<div>
+<label class="text-sm text-gray-600">Start Date</label>
+<input type="date" class="w-full mt-2 p-3 border rounded-xl focus:ring-2 focus:ring-indigo-400">
+</div>
+<div>
+<label class="text-sm text-gray-600">End Date</label>
+<input type="date" class="w-full mt-2 p-3 border rounded-xl focus:ring-2 focus:ring-indigo-400">
+</div>
+</div>
+
+<div>
+<label class="text-sm text-gray-600">Reason</label>
+<textarea rows="4" class="w-full mt-2 p-3 border rounded-xl focus:ring-2 focus:ring-indigo-400" placeholder="Enter detailed reason..."></textarea>
+</div>
+
+<div>
+<label class="text-sm text-gray-600">Alternative Contact</label>
+<input type="text" class="w-full mt-2 p-3 border rounded-xl focus:ring-2 focus:ring-indigo-400" placeholder="Phone or Email">
+</div>
+
+<div>
+<label class="text-sm text-gray-600">Upload Document</label>
+<input type="file" class="w-full mt-2">
+</div>
+
+<div class="flex gap-4">
+<button class="flex-1 bg-indigo-600 text-white py-3 rounded-xl hover:bg-indigo-700 transition shadow-lg">Submit</button>
+<button type="reset" class="flex-1 bg-gray-200 py-3 rounded-xl hover:bg-gray-300">Reset</button>
+</div>
+
+</form>
+
+</div>
+</div>
+
+</body>
+</html>
